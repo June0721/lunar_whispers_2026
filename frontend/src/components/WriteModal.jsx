@@ -63,7 +63,7 @@ const WriteModal = ({ isOpen, onClose, onSubmit }) => {
 
                 <div className="relative z-10 flex flex-col md:flex-row md:min-h-0">
                     {/* 侧边栏 - 类型选择 */}
-                    <div className="w-full md:w-1/3 bg-[#1a0f0f] border-b md:border-b-0 md:border-r border-white/5 p-4 md:p-6 flex flex-row md:flex-col gap-2 overflow-x-auto no-scrollbar">
+                    <div className="w-full md:w-1/3 bg-[#1a0f0f] border-b md:border-b-0 md:border-r border-white/5 p-3 md:p-6 flex flex-row md:flex-col gap-1 md:gap-2 overflow-x-auto no-scrollbar">
                         <h3 className="hidden md:block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">
                             Select Type
                         </h3>
@@ -74,15 +74,15 @@ const WriteModal = ({ isOpen, onClose, onSubmit }) => {
                                 <button
                                     key={t.id}
                                     onClick={() => setActiveTab(t.id)}
-                                    className={`flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-xl text-left transition-all duration-200 whitespace-nowrap ${isActive
+                                    className={`flex-1 md:flex-none flex items-center justify-center md:justify-start gap-1.5 md:gap-3 p-2 md:p-3 rounded-xl text-center md:text-left transition-all duration-200 ${isActive
                                         ? 'bg-white/5 border border-white/5 shadow-inner'
                                         : 'hover:bg-white/5 text-gray-500'
                                         }`}
                                 >
-                                    <div className={`p-1.5 md:p-2 rounded-lg ${isActive ? 'bg-[#2a1515]' : 'bg-[#1f1212]'} ${isActive ? t.color : 'text-gray-600'}`}>
-                                        <Icon className="w-3.5 h-3.5 md:w-4 h-4" />
+                                    <div className={`p-1 md:p-2 rounded-lg ${isActive ? 'bg-[#2a1515]' : 'bg-[#1f1212]'} ${isActive ? t.color : 'text-gray-600'}`}>
+                                        <Icon className="w-3 h-3 md:w-4 md:h-4" />
                                     </div>
-                                    <span className={`text-xs md:text-sm font-medium ${isActive ? 'text-red-100' : 'text-gray-500'}`}>
+                                    <span className={`text-[10px] md:text-sm font-medium ${isActive ? 'text-red-100' : 'text-gray-500'}`}>
                                         {t.label}
                                     </span>
                                 </button>
