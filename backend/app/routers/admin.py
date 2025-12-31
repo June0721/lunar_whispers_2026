@@ -16,8 +16,12 @@ from ..schemas import AdminStats, MessageResponse, WishListResponse, WishRespons
 
 router = APIRouter(prefix="/api/admin", tags=["admin"])
 
-# 从环境变量读取管理员密码，默认值仅用于开发
-ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "lunar2025")
+# 从环境变量读取管理员密码，必须设置！
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
+if not ADMIN_PASSWORD:
+    print("⚠️  警告: 未设置 ADMIN_PASSWORD 环境变量，管理后台将无法登录！")
+    print("   请设置环境变量: ADMIN_PASSWORD=你的密码")
+    ADMIN_PASSWORD = None  # 不设置默认值，强制要求配置
 
 # 简单的 token 存储（生产环境建议使用 Redis 或 JWT）
 admin_tokens = set()
@@ -36,6 +40,10 @@ class LoginResponse(BaseModel):
 @router.post("/login", response_model=LoginResponse)
 def admin_login(request: LoginRequest):
     """管理员登录"""
+    # 检查是否配置了密码
+    if not ADMIN_PASSWORD:
+        raise HTTPException(status_code=503, detail="管理后台未配置，请设置 ADMIN_PASSWORD 环境变量")
+    
     if request.password == ADMIN_PASSWORD:
         # 生成一个安全的 token
         token = secrets.token_urlsafe(32)
